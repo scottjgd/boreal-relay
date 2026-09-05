@@ -4,6 +4,8 @@ Boreal Relay is the free WordPress.org edition of Borealform's BYOK AI support
 assistant. It includes chat, approved starter knowledge, conversation history,
 feedback, human escalation, and widget settings without a licence.
 
+Public source: https://github.com/scottjgd/boreal-relay
+
 The commercial `boreal-relay-pro` add-on is maintained separately and must never
 be copied into this plugin or its WordPress.org ZIP.
 
@@ -19,13 +21,13 @@ licence endpoints, and nested development artifacts.
 
 ## Release checks
 
-1. Run PHP syntax checks across the Free source.
-2. Build the WordPress.org ZIP with the package script.
-3. Run WordPress Plugin Check in strict mode against the extracted ZIP.
+1. Run PHP syntax checks across the free and Pro source.
+2. Build both ZIPs with their dedicated scripts.
+3. Run WordPress Plugin Check in strict mode against the extracted free ZIP.
 4. Test Free alone on a clean WordPress install.
-5. Confirm the ZIP contains no Pro or commercial licence code.
+5. Test Pro inactive, valid, invalid, revoked, expired, and offline.
 6. Capture real WordPress screenshots for the directory listing.
-7. Upload the ZIP/source to WordPress.org.
+7. Upload only the free ZIP/source to WordPress.org.
 
 ## External service boundary
 
