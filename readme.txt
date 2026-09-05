@@ -73,6 +73,13 @@ Disabling the widget stops visitor chat requests. Removing the saved OpenAI API 
 
 The free plugin does not contact Borealform, perform licence checks, load remote code, or use an external updater.
 
+== Source code ==
+
+The complete human-readable source for Boreal Relay Free is publicly available at:
+https://github.com/scottjgd/boreal-relay
+
+The repository contains the same Free plugin source used to build the WordPress.org submission package. Boreal Relay Pro is a separately distributed commercial add-on and is not included in the Free repository or WordPress.org ZIP.
+
 == Privacy and local data ==
 
 Boreal Relay stores conversations, response feedback, page URLs, escalation records, optional visitor contact details, and approved knowledge in the site's WordPress database. Escalation email uses the site's configured WordPress mail delivery.
