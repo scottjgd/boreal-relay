@@ -1,0 +1,34 @@
+name: Boreal Relay Plugin Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  plugin-check:
+    name: WordPress Plugin Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Build submission ZIP
+        run: node scripts/package-wordpressorg.mjs
+
+      - name: Extract submission ZIP
+        run: unzip -q .wordpressorg-dist/boreal-relay.zip -d /tmp/boreal-relay-pcp
+
+      - name: Run Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: /tmp/boreal-relay-pcp/boreal-relay
+          strict: 'true'
