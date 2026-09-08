@@ -8,9 +8,11 @@ import { fileURLToPath } from 'node:url';
 const scriptDir = path.dirname( fileURLToPath( import.meta.url ) );
 const pluginDir = path.resolve( scriptDir, '..' );
 const slug = 'boreal-relay';
+const version = '2.1.0';
 const outputDir = path.join( pluginDir, '.wordpressorg-dist' );
 const stagingRoot = path.join( outputDir, slug );
 const zipPath = path.join( outputDir, `${ slug }.zip` );
+const versionedZipPath = path.join( outputDir, `${ slug }-${ version }.zip` );
 
 fs.rmSync( outputDir, { recursive: true, force: true } );
 fs.mkdirSync( stagingRoot, { recursive: true } );
@@ -102,7 +104,7 @@ const mainPlugin = execFileSync(
 );
 for ( const expectedHeader of [
     'Plugin Name: Boreal Relay',
-    'Version: 2.1.0',
+    `Version: ${ version }`,
     'Text Domain: boreal-relay',
 ] ) {
     if ( ! mainPlugin.includes( expectedHeader ) ) {
@@ -111,8 +113,8 @@ for ( const expectedHeader of [
 }
 
 const readme = fs.readFileSync( path.join( pluginDir, 'readme.txt' ), 'utf8' );
-if ( ! /Stable tag:\s*2\.1\.0/.test( readme ) ) {
-    throw new Error( 'readme.txt stable tag does not match version 2.1.0.' );
+if ( ! new RegExp( `Stable tag:\\s*${ version.replaceAll( '.', '\\.' ) }` ).test( readme ) ) {
+    throw new Error( `readme.txt stable tag does not match version ${ version }.` );
 }
 if ( ! /^Contributors:\s*.*\bscottnanc\b/im.test( readme ) ) {
     throw new Error( 'Required contributor scottnanc is missing.' );
@@ -122,4 +124,7 @@ if ( shortDescription.length > 150 ) {
     throw new Error( `WordPress.org short description is ${ shortDescription.length } characters.` );
 }
 
+fs.copyFileSync( zipPath, versionedZipPath );
+
 console.log( `Created ${ path.relative( process.cwd(), zipPath ) }` );
+console.log( `Created ${ path.relative( process.cwd(), versionedZipPath ) }` );
