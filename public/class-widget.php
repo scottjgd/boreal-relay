@@ -25,6 +25,7 @@ class BR_Widget {
             BR_VERSION,
             true
         );
+        wp_script_add_data( 'boreal-relay-widget', 'strategy', 'defer' );
 
         $page_url = get_permalink();
         if ( ! $page_url ) {
