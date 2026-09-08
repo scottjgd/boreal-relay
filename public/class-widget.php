@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class BR_Widget {
+class Boreal_Relay_Widget {
 
     public function init() {
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
@@ -13,16 +13,16 @@ class BR_Widget {
 
         wp_enqueue_style(
             'boreal-relay-widget',
-            BR_PLUGIN_URL . 'public/css/chat-widget.css',
+            BOREAL_RELAY_PLUGIN_URL . 'public/css/chat-widget.css',
             array(),
-            BR_VERSION
+            BOREAL_RELAY_VERSION
         );
 
         wp_enqueue_script(
             'boreal-relay-widget',
-            BR_PLUGIN_URL . 'public/js/chat-widget.js',
+            BOREAL_RELAY_PLUGIN_URL . 'public/js/chat-widget.js',
             array( 'jquery' ),
-            BR_VERSION,
+            BOREAL_RELAY_VERSION,
             true
         );
         wp_script_add_data( 'boreal-relay-widget', 'strategy', 'defer' );

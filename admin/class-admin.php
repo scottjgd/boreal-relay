@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class BR_Admin {
+class Boreal_Relay_Admin {
 
     // Allowed escalation status values.
     const ALLOWED_STATUSES = array( 'open', 'in_progress', 'resolved' );
@@ -22,7 +22,7 @@ class BR_Admin {
     // -----------------------------------------------------------------------
 
     public function register_menus() {
-        $escalation = new BR_Escalation();
+        $escalation = new Boreal_Relay_Escalation();
         $open_count = $escalation->get_open_count();
         $badge = $open_count > 0
             ? ' <span class="update-plugins"><span class="plugin-count">' . intval( $open_count ) . '</span></span>'
@@ -52,8 +52,8 @@ class BR_Admin {
 
     public function enqueue_assets( $hook ) {
         if ( strpos( $hook, 'boreal-relay' ) === false ) return;
-        wp_enqueue_style(  'boreal-relay-admin', BR_PLUGIN_URL . 'admin/css/admin.css', array(), BR_VERSION );
-        wp_enqueue_script( 'boreal-relay-admin', BR_PLUGIN_URL . 'admin/js/admin.js',   array( 'jquery' ), BR_VERSION, true );
+        wp_enqueue_style(  'boreal-relay-admin', BOREAL_RELAY_PLUGIN_URL . 'admin/css/admin.css', array(), BOREAL_RELAY_VERSION );
+        wp_enqueue_script( 'boreal-relay-admin', BOREAL_RELAY_PLUGIN_URL . 'admin/js/admin.js',   array( 'jquery' ), BOREAL_RELAY_VERSION, true );
     }
 
     // -----------------------------------------------------------------------
@@ -150,10 +150,10 @@ class BR_Admin {
     // -----------------------------------------------------------------------
 
     public function page_dashboard() {
-        $conversation = new BR_Conversation();
+        $conversation = new Boreal_Relay_Conversation();
         $stats        = $conversation->get_stats();
-        $escalation   = new BR_Escalation();
-        include BR_PLUGIN_DIR . 'admin/views/dashboard.php';
+        $escalation   = new Boreal_Relay_Escalation();
+        include BOREAL_RELAY_PLUGIN_DIR . 'admin/views/dashboard.php';
     }
 
     public function page_conversations() {
@@ -162,36 +162,36 @@ class BR_Admin {
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- boreal_relay_sanitize_session_id() applies a strict session-ID allowlist.
             $session_id = boreal_relay_sanitize_session_id( wp_unslash( $_GET['session'] ) );
         }
-        $conversation = new BR_Conversation();
+        $conversation = new Boreal_Relay_Conversation();
         if ( $session_id ) {
             $messages = $conversation->get_session_messages( $session_id );
-            include BR_PLUGIN_DIR . 'admin/views/conversation-detail.php';
+            include BOREAL_RELAY_PLUGIN_DIR . 'admin/views/conversation-detail.php';
         } else {
             $sessions = $conversation->get_sessions( 100 );
-            include BR_PLUGIN_DIR . 'admin/views/conversations.php';
+            include BOREAL_RELAY_PLUGIN_DIR . 'admin/views/conversations.php';
         }
     }
 
     public function page_knowledge() {
-        $kb      = new BR_Knowledge_Base();
+        $kb      = new Boreal_Relay_Knowledge_Base();
         $entries = $kb->get_all( false );
         $edit_id = isset( $_GET['edit'], $_GET['_wpnonce'] ) && is_scalar( $_GET['edit'] ) && is_string( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'boreal_relay_knowledge_view' ) ? absint( $_GET['edit'] ) : 0;
-        include BR_PLUGIN_DIR . 'admin/views/knowledge.php';
+        include BOREAL_RELAY_PLUGIN_DIR . 'admin/views/knowledge.php';
     }
 
     public function page_escalations() {
-        $escalation    = new BR_Escalation();
+        $escalation    = new Boreal_Relay_Escalation();
         $status_filter = isset( $_GET['status'], $_GET['_wpnonce'] ) && is_string( $_GET['status'] ) && is_string( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'boreal_relay_escalation_filter' ) ? sanitize_key( wp_unslash( $_GET['status'] ) ) : null;
         // Allowlist status filter.
         if ( $status_filter !== null && ! in_array( $status_filter, self::ALLOWED_STATUSES, true ) ) {
             $status_filter = null;
         }
         $escalations = $escalation->get_all( $status_filter );
-        include BR_PLUGIN_DIR . 'admin/views/escalations.php';
+        include BOREAL_RELAY_PLUGIN_DIR . 'admin/views/escalations.php';
     }
 
     public function page_settings() {
-        include BR_PLUGIN_DIR . 'admin/views/settings.php';
+        include BOREAL_RELAY_PLUGIN_DIR . 'admin/views/settings.php';
     }
 
     // -----------------------------------------------------------------------
@@ -204,7 +204,7 @@ class BR_Admin {
             wp_die( esc_html__( 'Unauthorized', 'boreal-relay' ) );
         }
 
-        $escalation = new BR_Escalation();
+        $escalation = new Boreal_Relay_Escalation();
         $id         = isset( $_POST['escalation_id'] ) && is_scalar( $_POST['escalation_id'] ) ? absint( $_POST['escalation_id'] ) : 0;
         $status_raw = isset( $_POST['status'] ) && is_string( $_POST['status'] ) ? sanitize_key( wp_unslash( $_POST['status'] ) ) : 'open';
         $notes      = isset( $_POST['notes'] ) && is_string( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '';

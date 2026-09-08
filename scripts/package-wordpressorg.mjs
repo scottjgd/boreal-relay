@@ -81,6 +81,7 @@ for ( const entry of entries ) {
 }
 
 const forbiddenSource = [
+    { label: 'legacy short global identifier', expression: /\bBR_(?:VERSION|PLUGIN_DIR|PLUGIN_URL|PLUGIN_FILE|MAX_MESSAGE_LENGTH|MAX_SESSION_LENGTH|Database|Knowledge_Base|Escalation|Conversation|AI_Engine|Widget|Admin)\b/ },
     { label: 'Borealform licence endpoint', expression: /api\.borealform\.com|\/v1\/licenses\//i },
     { label: 'Pro licence implementation', expression: /\bBRP?_License\b|boreal_relay_pro_license/i },
     { label: 'commercial updater hook', expression: /(?:pre_set|set)_site_transient_update_plugins/ },

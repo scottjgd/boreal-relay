@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class BR_AI_Engine {
+class Boreal_Relay_AI_Engine {
 
     private $api_key;
     private $model;
@@ -14,7 +14,7 @@ class BR_AI_Engine {
     }
 
     private function build_system_prompt() {
-        $kb      = new BR_Knowledge_Base();
+        $kb      = new Boreal_Relay_Knowledge_Base();
         $context = $kb->get_as_context();
 
         $business_name = get_option( 'boreal_relay_business_name', 'our business' );

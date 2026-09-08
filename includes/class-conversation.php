@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter,WordPress.DB.DirectDatabaseQuery.NoCaching -- This class only composes identifiers for plugin-owned tables from the trusted WordPress database prefix. Conversation writes and ownership checks require current data; request values are separately prepared or handled by wpdb CRUD methods.
 
-class BR_Conversation {
+class Boreal_Relay_Conversation {
 
     private $table;
 

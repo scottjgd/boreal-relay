@@ -16,35 +16,35 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'BR_VERSION',     '2.1.0' );
-define( 'BR_PLUGIN_DIR',  plugin_dir_path( __FILE__ ) );
-define( 'BR_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
-define( 'BR_PLUGIN_FILE', __FILE__ );
+define( 'BOREAL_RELAY_VERSION',     '2.1.0' );
+define( 'BOREAL_RELAY_PLUGIN_DIR',  plugin_dir_path( __FILE__ ) );
+define( 'BOREAL_RELAY_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
+define( 'BOREAL_RELAY_PLUGIN_FILE', __FILE__ );
 
 // Public-AJAX input limits.
-define( 'BR_MAX_MESSAGE_LENGTH', 2000 );
-define( 'BR_MAX_SESSION_LENGTH', 128 );
+define( 'BOREAL_RELAY_MAX_MESSAGE_LENGTH', 2000 );
+define( 'BOREAL_RELAY_MAX_SESSION_LENGTH', 128 );
 
-require_once BR_PLUGIN_DIR . 'includes/class-database.php';
-require_once BR_PLUGIN_DIR . 'includes/class-knowledge-base.php';
-require_once BR_PLUGIN_DIR . 'includes/class-ai-engine.php';
-require_once BR_PLUGIN_DIR . 'includes/class-conversation.php';
-require_once BR_PLUGIN_DIR . 'includes/class-escalation.php';
-require_once BR_PLUGIN_DIR . 'public/class-widget.php';
-require_once BR_PLUGIN_DIR . 'admin/class-admin.php';
+require_once BOREAL_RELAY_PLUGIN_DIR . 'includes/class-database.php';
+require_once BOREAL_RELAY_PLUGIN_DIR . 'includes/class-knowledge-base.php';
+require_once BOREAL_RELAY_PLUGIN_DIR . 'includes/class-ai-engine.php';
+require_once BOREAL_RELAY_PLUGIN_DIR . 'includes/class-conversation.php';
+require_once BOREAL_RELAY_PLUGIN_DIR . 'includes/class-escalation.php';
+require_once BOREAL_RELAY_PLUGIN_DIR . 'public/class-widget.php';
+require_once BOREAL_RELAY_PLUGIN_DIR . 'admin/class-admin.php';
 
-register_activation_hook( __FILE__, array( 'BR_Database', 'install' ) );
-add_action( 'plugins_loaded', array( 'BR_Database', 'maybe_upgrade' ) );
-add_action( 'wp_ajax_nopriv_boreal_relay_save_contact', array( 'BR_Escalation', 'handle_save_contact_ajax' ) );
-add_action( 'wp_ajax_boreal_relay_save_contact',        array( 'BR_Escalation', 'handle_save_contact_ajax' ) );
-register_deactivation_hook( __FILE__, array( 'BR_Database', 'deactivate' ) );
+register_activation_hook( __FILE__, array( 'Boreal_Relay_Database', 'install' ) );
+add_action( 'plugins_loaded', array( 'Boreal_Relay_Database', 'maybe_upgrade' ) );
+add_action( 'wp_ajax_nopriv_boreal_relay_save_contact', array( 'Boreal_Relay_Escalation', 'handle_save_contact_ajax' ) );
+add_action( 'wp_ajax_boreal_relay_save_contact',        array( 'Boreal_Relay_Escalation', 'handle_save_contact_ajax' ) );
+register_deactivation_hook( __FILE__, array( 'Boreal_Relay_Database', 'deactivate' ) );
 
 function boreal_relay_init() {
-    $widget = new BR_Widget();
+    $widget = new Boreal_Relay_Widget();
     $widget->init();
 
     if ( is_admin() ) {
-        $admin   = new BR_Admin();
+        $admin   = new Boreal_Relay_Admin();
         $admin->init();
 
     }
@@ -100,10 +100,10 @@ function boreal_relay_has_active_pro() {
 function boreal_relay_sanitize_session_id( $raw ) {
     $clean = sanitize_text_field( $raw );
     // Limit length and allow only safe characters.
-    if ( strlen( $clean ) > BR_MAX_SESSION_LENGTH ) {
+    if ( strlen( $clean ) > BOREAL_RELAY_MAX_SESSION_LENGTH ) {
         return '';
     }
-    if ( ! preg_match( '/^[a-zA-Z0-9_\-]{1,' . BR_MAX_SESSION_LENGTH . '}$/', $clean ) ) {
+    if ( ! preg_match( '/^[a-zA-Z0-9_\-]{1,' . BOREAL_RELAY_MAX_SESSION_LENGTH . '}$/', $clean ) ) {
         return '';
     }
     return $clean;
@@ -167,15 +167,15 @@ function boreal_relay_ajax_handler() {
     if ( empty( $message ) ) {
         wp_send_json_error( array( 'message' => 'Empty message.' ) );
     }
-    if ( strlen( $message ) > BR_MAX_MESSAGE_LENGTH ) {
+    if ( strlen( $message ) > BOREAL_RELAY_MAX_MESSAGE_LENGTH ) {
         wp_send_json_error( array( 'message' => 'Message too long.' ) );
     }
 
     $page_url = isset( $_POST['page_url'] ) && is_string( $_POST['page_url'] ) ? esc_url_raw( wp_unslash( $_POST['page_url'] ) ) : '';
 
-    $conversation = new BR_Conversation();
-    $ai_engine    = new BR_AI_Engine();
-    $escalation   = new BR_Escalation();
+    $conversation = new Boreal_Relay_Conversation();
+    $ai_engine    = new Boreal_Relay_AI_Engine();
+    $escalation   = new Boreal_Relay_Escalation();
 
     $history = $conversation->get_history( $session );
 
@@ -239,7 +239,7 @@ function boreal_relay_feedback_handler() {
     $question = isset( $_POST['question'] ) && is_string( $_POST['question'] ) ? sanitize_text_field( wp_unslash( $_POST['question'] ) ) : '';
     $answer   = isset( $_POST['answer'] ) && is_string( $_POST['answer'] ) ? sanitize_textarea_field( wp_unslash( $_POST['answer'] ) ) : '';
 
-    $conversation = new BR_Conversation();
+    $conversation = new Boreal_Relay_Conversation();
     $conversation->save_feedback( $session, $message_id, $helpful, $question, $answer );
 
     wp_send_json_success();

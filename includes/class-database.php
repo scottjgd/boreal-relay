@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class BR_Database {
+class Boreal_Relay_Database {
 
     public static function install() {
         global $wpdb;
@@ -60,16 +60,16 @@ class BR_Database {
         dbDelta( $sql_knowledge );
         dbDelta( $sql_escalations );
 
-        add_option( 'boreal_relay_db_version', BR_VERSION );
+        add_option( 'boreal_relay_db_version', BOREAL_RELAY_VERSION );
 
-        $kb = new BR_Knowledge_Base();
+        $kb = new Boreal_Relay_Knowledge_Base();
         $kb->seed_initial_knowledge();
     }
 
     public static function maybe_upgrade() {
-        if ( get_option( 'boreal_relay_db_version' ) !== BR_VERSION ) {
+        if ( get_option( 'boreal_relay_db_version' ) !== BOREAL_RELAY_VERSION ) {
             self::install();
-            update_option( 'boreal_relay_db_version', BR_VERSION );
+            update_option( 'boreal_relay_db_version', BOREAL_RELAY_VERSION );
         }
     }
 

@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter,WordPress.DB.DirectDatabaseQuery.NoCaching -- This class only composes identifiers for plugin-owned tables from the trusted WordPress database prefix. Knowledge-base mutations and review screens require current data; request values are separately prepared or handled by wpdb CRUD methods.
 
-class BR_Knowledge_Base {
+class Boreal_Relay_Knowledge_Base {
 
     // -----------------------------------------------------------------------
     // Seed
