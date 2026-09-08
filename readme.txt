@@ -1,5 +1,5 @@
 === Boreal Relay ===
-Contributors: borealformstudio
+Contributors: borealformstudio, scottnanc
 Tags: customer service, chatbot, ai, openai, live chat
 Requires at least: 5.8
 Tested up to: 7.1

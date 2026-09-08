@@ -114,6 +114,9 @@ const readme = fs.readFileSync( path.join( pluginDir, 'readme.txt' ), 'utf8' );
 if ( ! /Stable tag:\s*2\.1\.0/.test( readme ) ) {
     throw new Error( 'readme.txt stable tag does not match version 2.1.0.' );
 }
+if ( ! /^Contributors:\s*.*\bscottnanc\b/im.test( readme ) ) {
+    throw new Error( 'Required contributor scottnanc is missing.' );
+}
 const shortDescription = readme.split( '\n' )[ 10 ]?.trim() ?? '';
 if ( shortDescription.length > 150 ) {
     throw new Error( `WordPress.org short description is ${ shortDescription.length } characters.` );
