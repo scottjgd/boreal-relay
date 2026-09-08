@@ -6,6 +6,21 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.1.1] — 2026-09-08
+
+### Changed
+
+- Replaced short global PHP constants and classes with collision-safe `BOREAL_RELAY_` and `Boreal_Relay_` identifiers.
+- Deferred the public widget script while retaining the site-wide widget when Relay is enabled.
+- Added WordPress and PHP requirement headers to the main plugin file for clearer manual installation checks.
+- Added a versioned WordPress.org package alongside the canonical submission ZIP.
+
+### Fixed
+
+- Resolved Plugin Check findings for trusted custom-table identifiers, translator comments, custom session sanitization, template-local variables, and direct provider compatibility.
+- Added automated Plugin Check validation and package assertions to prevent submission metadata and namespace regressions.
+- Updated Relay Pro to use the collision-safe Free identifiers.
+
 ## [2.1.0] — 2026-09-05
 
 ### Changed
@@ -23,7 +38,7 @@ This is a clean independent release. It shares no identifiers with any prior pro
 
 ### Added
 
-- New `BR_` PHP class prefix, `br_` function prefix, `boreal_relay_` option/transient/action/nonce identifiers throughout
+- Product-specific PHP classes and constants, `br_` function prefix, and `boreal_relay_` option/transient/action/nonce identifiers throughout
 - New DB tables: `{prefix}boreal_relay_conversations`, `{prefix}boreal_relay_knowledge`, `{prefix}boreal_relay_escalations`
 - Public-facing JS global `BorealRelay`; all widget HTML IDs use `boreal-relay-` prefix
 - Admin menu slugs: `boreal-relay-dashboard`, `boreal-relay-conversations`, `boreal-relay-knowledge`, `boreal-relay-escalations`, `boreal-relay-settings`

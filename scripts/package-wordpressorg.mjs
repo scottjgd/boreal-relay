@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 const scriptDir = path.dirname( fileURLToPath( import.meta.url ) );
 const pluginDir = path.resolve( scriptDir, '..' );
 const slug = 'boreal-relay';
-const version = '2.1.0';
+const version = '2.1.1';
 const outputDir = path.join( pluginDir, '.wordpressorg-dist' );
 const stagingRoot = path.join( outputDir, slug );
 const zipPath = path.join( outputDir, `${ slug }.zip` );

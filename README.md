@@ -15,9 +15,10 @@ be copied into this plugin or its WordPress.org ZIP.
 node scripts/package-wordpressorg.mjs
 ```
 
-The packager creates `.wordpressorg-dist/boreal-relay.zip` and rejects
-unexpected files, licence code, Pro source, external updater hooks, Borealform
-licence endpoints, and nested development artifacts.
+The packager creates `.wordpressorg-dist/boreal-relay.zip` plus a versioned
+submission ZIP and rejects unexpected files, licence code, Pro source, external
+updater hooks, Borealform licence endpoints, legacy short global identifiers,
+and nested development artifacts.
 
 ## Release checks
 

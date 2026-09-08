@@ -3,7 +3,7 @@
  * Plugin Name: Boreal Relay
  * Plugin URI: https://borealform.com/boreal-relay
  * Description: A BYOK AI support assistant with approved answers, conversation history, feedback, and safe human handoff.
- * Version: 2.1.0
+ * Version: 2.1.1
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * Author: Borealform Studio
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'BOREAL_RELAY_VERSION',     '2.1.0' );
+define( 'BOREAL_RELAY_VERSION',     '2.1.1' );
 define( 'BOREAL_RELAY_PLUGIN_DIR',  plugin_dir_path( __FILE__ ) );
 define( 'BOREAL_RELAY_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
 define( 'BOREAL_RELAY_PLUGIN_FILE', __FILE__ );

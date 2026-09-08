@@ -3,7 +3,7 @@ Contributors: borealformstudio, scottnanc
 Tags: customer service, chatbot, ai, openai, live chat
 Requires at least: 5.8
 Tested up to: 7.1
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -124,6 +124,14 @@ Free users can review and use all included approved answers. Creating, editing, 
 6. The separate Pro add-on editing and feedback-review workflow.
 
 == Changelog ==
+
+= 2.1.1 =
+
+* Added WordPress and PHP requirement headers so compatibility details appear during manual plugin replacement.
+* Resolved WordPress Plugin Check database, translation, sanitizer, template-variable, and global-prefix findings.
+* Replaced short global PHP identifiers with the collision-safe `BOREAL_RELAY_` and `Boreal_Relay_` prefixes.
+* Deferred the public widget script while preserving the intentionally site-wide chat experience.
+* Added automated Plugin Check validation and versioned deterministic submission packages.
 
 = 2.1.0 =
 
