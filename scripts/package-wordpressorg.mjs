@@ -105,6 +105,8 @@ const mainPlugin = execFileSync(
 for ( const expectedHeader of [
     'Plugin Name: Boreal Relay',
     `Version: ${ version }`,
+    'Requires at least: 5.8',
+    'Requires PHP: 7.4',
     'Text Domain: boreal-relay',
 ] ) {
     if ( ! mainPlugin.includes( expectedHeader ) ) {

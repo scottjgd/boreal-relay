@@ -4,6 +4,8 @@
  * Plugin URI: https://borealform.com/boreal-relay
  * Description: A BYOK AI support assistant with approved answers, conversation history, feedback, and safe human handoff.
  * Version: 2.1.0
+ * Requires at least: 5.8
+ * Requires PHP: 7.4
  * Author: Borealform Studio
  * Author URI: https://borealform.com
  * License: GPL-2.0+
