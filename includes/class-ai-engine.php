@@ -117,6 +117,7 @@ class BR_AI_Engine {
 
         $messages[] = array( 'role' => 'user', 'content' => $message );
 
+        // phpcs:ignore PluginCheck.CodeAnalysis.AIProvider.DirectIntegration -- Relay supports WordPress versions before the 7.0 AI Client and sends requests with the site owner's own provider key.
         $response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
             'timeout' => 30,
             'headers' => array(

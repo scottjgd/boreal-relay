@@ -1,4 +1,5 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+<?php // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Variables in this included admin template are local presentation values, not registered globals. ?>
 <?php
 $br_is_pro  = function_exists( 'boreal_relay_has_active_pro' ) && boreal_relay_has_active_pro();
 $br_pro_url = function_exists( 'boreal_relay_get_pro_url' )

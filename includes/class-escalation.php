@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- This class only composes identifiers for plugin-owned tables from the trusted WordPress database prefix; request values are separately prepared or handled by wpdb CRUD methods.
+// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter,WordPress.DB.DirectDatabaseQuery.NoCaching -- This class only composes identifiers for plugin-owned tables from the trusted WordPress database prefix. Escalation state must be current for support handoff; request values are separately prepared or handled by wpdb CRUD methods.
 
 class BR_Escalation {
 

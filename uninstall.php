@@ -5,22 +5,24 @@
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Uninstall must delete plugin-owned tables immediately; caching destructive schema operations is neither applicable nor safe.
+
 global $wpdb;
 
-$br_tables = array(
+$boreal_relay_tables = array(
     $wpdb->prefix . 'boreal_relay_conversations',
     $wpdb->prefix . 'boreal_relay_knowledge',
     $wpdb->prefix . 'boreal_relay_escalations',
 );
 
-foreach ( $br_tables as $br_table ) {
+foreach ( $boreal_relay_tables as $boreal_relay_table ) {
     // Plugin-owned table identifiers contain only the trusted WordPress prefix
     // and hard-coded suffixes above; values are never accepted from a request.
     // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.SchemaChange
-    $wpdb->query( "DROP TABLE IF EXISTS {$br_table}" );
+    $wpdb->query( "DROP TABLE IF EXISTS {$boreal_relay_table}" );
 }
 
-$br_options = array(
+$boreal_relay_options = array(
     'boreal_relay_db_version',
     'boreal_relay_enabled',
     'boreal_relay_openai_api_key',
@@ -34,6 +36,6 @@ $br_options = array(
     'boreal_relay_escalation_cc',
 );
 
-foreach ( $br_options as $br_option ) {
-    delete_option( $br_option );
+foreach ( $boreal_relay_options as $boreal_relay_option ) {
+    delete_option( $boreal_relay_option );
 }

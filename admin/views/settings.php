@@ -1,4 +1,5 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+<?php // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Variables in this included admin template are local presentation values, not registered globals. ?>
 <?php
 // Detect whether secrets are stored so we can show a masked indicator.
 $br_has_openai_key = (bool) get_option( 'boreal_relay_openai_api_key', '' );

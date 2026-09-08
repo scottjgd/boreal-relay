@@ -1,4 +1,5 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+<?php // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Variables in this included admin template are local presentation values, not registered globals. ?>
 <div class="wrap br-wrap">
     <h1 class="br-page-title">
         <span class="dashicons dashicons-format-chat"></span>
