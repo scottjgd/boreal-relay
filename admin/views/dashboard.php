@@ -101,9 +101,10 @@ $br_pro_product_url = function_exists( 'boreal_relay_get_pro_url' )
                     </p>
                     <p class="br-hint">
                         <?php
-                        /* translators: %s: knowledge base URL. */
                         $br_feedback_message = $br_is_pro
+                            /* translators: %s: URL to the Boreal Relay knowledge base. */
                             ? __( 'Review unhelpful responses in your <a href="%s">Knowledge Base</a> and turn them into approved answers.', 'boreal-relay' )
+                            /* translators: %s: URL to the Boreal Relay Pro product page. */
                             : __( 'Feedback is saved in Free. <a href="%s">Boreal Relay Pro</a> turns unhelpful answers into a review queue you can improve and approve.', 'boreal-relay' );
                         printf(
                             wp_kses(

@@ -20,7 +20,7 @@ class BR_Escalation {
     public function trigger( $session_id, $trigger_message, $ai_reply ) {
         global $wpdb;
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- This real-time duplicate check uses this plugin's trusted custom table; the session ID is prepared.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- This real-time duplicate check uses this plugin's trusted custom table; the session ID is prepared.
         $existing = $wpdb->get_var( $wpdb->prepare(
             'SELECT id FROM ' . $this->table . " WHERE session_id = %s AND status = 'open'",
             $session_id
@@ -52,7 +52,7 @@ class BR_Escalation {
     public function update_contact_info( $session_id, $name, $email, $phone ) {
         global $wpdb;
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- This real-time lookup uses this plugin's trusted custom table; the session ID is prepared.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- This real-time lookup uses this plugin's trusted custom table; the session ID is prepared.
         $existing_id = $wpdb->get_var( $wpdb->prepare(
             'SELECT id FROM ' . $this->table . ' WHERE session_id = %s',
             sanitize_text_field( $session_id )
@@ -98,6 +98,7 @@ class BR_Escalation {
     public static function handle_save_contact_ajax() {
         check_ajax_referer( 'boreal_relay_nonce', 'nonce' );
 
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- boreal_relay_sanitize_session_id() applies a strict session-ID allowlist.
         $session_id = isset( $_POST['session_id'] ) && is_string( $_POST['session_id'] ) ? boreal_relay_sanitize_session_id( wp_unslash( $_POST['session_id'] ) ) : '';
         $name       = isset( $_POST['name'] ) && is_string( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
         $email      = isset( $_POST['email'] ) && is_string( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
@@ -153,7 +154,7 @@ class BR_Escalation {
         }
 
         if ( $status !== null ) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- This real-time list reads this plugin's trusted custom table; filter and pagination values are prepared.
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- This real-time list reads this plugin's trusted custom table; filter and pagination values are prepared.
             return $wpdb->get_results( $wpdb->prepare(
                 'SELECT * FROM ' . $this->table . ' WHERE status = %s ORDER BY created_at DESC LIMIT %d OFFSET %d',
                 $status,
@@ -162,7 +163,7 @@ class BR_Escalation {
             ) );
         }
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- This real-time list reads this plugin's trusted custom table; pagination values are prepared.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- This real-time list reads this plugin's trusted custom table; pagination values are prepared.
         return $wpdb->get_results( $wpdb->prepare(
             'SELECT * FROM ' . $this->table . ' ORDER BY created_at DESC LIMIT %d OFFSET %d',
             $limit,
@@ -172,7 +173,7 @@ class BR_Escalation {
 
     public function get_open_count() {
         global $wpdb;
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- The admin badge requires the current count from this plugin's trusted custom table.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- The admin badge requires the current count from this plugin's trusted custom table.
         return intval( $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $this->table . " WHERE status = 'open'" ) );
     }
 

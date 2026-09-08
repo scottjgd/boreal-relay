@@ -11,7 +11,7 @@ class BR_Knowledge_Base {
         global $wpdb;
         $table = $wpdb->prefix . 'boreal_relay_knowledge';
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Seed detection reads this plugin's trusted custom table; its identifier is built from the WordPress prefix.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- Seed detection reads this plugin's trusted custom table; its identifier is built from the WordPress prefix.
         $existing = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $table . " WHERE source = 'seed'" );
         if ( intval( $existing ) > 0 ) {
             return;
@@ -169,7 +169,7 @@ class BR_Knowledge_Base {
         global $wpdb;
         $table = $wpdb->prefix . 'boreal_relay_knowledge';
         $sql = 'SELECT * FROM ' . $table . ( $approved_only ? ' WHERE approved = 1' : '' ) . ' ORDER BY category, id';
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Knowledge entries must be current; this plugin-owned table identifier is trusted and the condition is a boolean-controlled literal.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- Knowledge entries must be current; this plugin-owned table identifier is trusted and the condition is a boolean-controlled literal.
         return $wpdb->get_results( $sql );
     }
 

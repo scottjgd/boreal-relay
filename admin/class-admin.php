@@ -159,6 +159,7 @@ class BR_Admin {
     public function page_conversations() {
         $session_id = '';
         if ( isset( $_GET['session'], $_GET['_wpnonce'] ) && is_string( $_GET['session'] ) && is_string( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'boreal_relay_view_conversation' ) ) {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- boreal_relay_sanitize_session_id() applies a strict session-ID allowlist.
             $session_id = boreal_relay_sanitize_session_id( wp_unslash( $_GET['session'] ) );
         }
         $conversation = new BR_Conversation();

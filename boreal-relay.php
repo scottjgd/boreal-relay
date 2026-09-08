@@ -152,6 +152,7 @@ function boreal_relay_ajax_handler() {
     if ( ! isset( $_POST['session_id'] ) || ! is_string( $_POST['session_id'] ) ) {
         wp_send_json_error( array( 'message' => 'Invalid session.' ) );
     }
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- boreal_relay_sanitize_session_id() applies a strict session-ID allowlist.
     $session = boreal_relay_sanitize_session_id( wp_unslash( $_POST['session_id'] ) );
     if ( empty( $session ) ) {
         wp_send_json_error( array( 'message' => 'Invalid session.' ) );
@@ -215,6 +216,7 @@ function boreal_relay_feedback_handler() {
     if ( ! isset( $_POST['session_id'] ) || ! is_string( $_POST['session_id'] ) ) {
         wp_send_json_error( array( 'message' => 'Invalid session.' ) );
     }
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- boreal_relay_sanitize_session_id() applies a strict session-ID allowlist.
     $session = boreal_relay_sanitize_session_id( wp_unslash( $_POST['session_id'] ) );
     if ( empty( $session ) ) {
         wp_send_json_error( array( 'message' => 'Invalid session.' ) );
