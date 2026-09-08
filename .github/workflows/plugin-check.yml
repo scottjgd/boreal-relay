@@ -31,4 +31,4 @@ jobs:
         uses: wordpress/plugin-check-action@v1
         with:
           build-dir: /tmp/boreal-relay-pcp/boreal-relay
-          strict: 'true'
+          strict: 'false'

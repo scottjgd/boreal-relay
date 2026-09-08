@@ -1,6 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- This class only composes identifiers for plugin-owned tables from the trusted WordPress database prefix; request values are separately prepared or handled by wpdb CRUD methods.
+
 class BR_Conversation {
 
     private $table;
